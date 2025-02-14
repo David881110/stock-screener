@@ -113,6 +113,18 @@ def show_screener():
         st.session_state["screen_width"] = 800
 
     portfolio_df = load_latest_portfolio()
+    
+    # 🛠 Debugging: Zeige alle Spalten des geladenen DataFrames
+    st.write("📊 Spalten im Portfolio-DataFrame:", portfolio_df.columns.tolist())
+
+    # 🔍 Prüfe, ob alle benötigten Spalten existieren
+    missing_columns = [col for col in FACTOR_MAPPING.values() if col not in portfolio_df.columns]
+
+    if missing_columns:
+        st.error(f"❌ Fehlende Spalten im Portfolio-DataFrame: {missing_columns}")
+        return  # 🛑 Stoppe die weitere Ausführung, wenn Spalten fehlen
+
+    # ✅ Entferne Zeilen mit fehlenden Werten in relevanten Spalten
     portfolio_df = portfolio_df.dropna(subset=FACTOR_MAPPING.values())
 
     selected_stock = st.selectbox("Wähle eine Aktie:", portfolio_df["Unternehmensname"].unique())
@@ -130,6 +142,7 @@ def show_screener():
             return
 
         st.markdown(f"<h4 style='text-align: center; font-weight: bold; font-size:18px;'>Faktoranalyse der {selected_stock}-Aktie</h4>", unsafe_allow_html=True)
+
 
         col1, col2 = st.columns([4, 1])
         with col1:
