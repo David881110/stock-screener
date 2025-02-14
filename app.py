@@ -1,22 +1,8 @@
 import streamlit as st
-from components import optimizer, screener, portfolio
+from components import screener
 
-# App-Konfiguration
-st.set_page_config(layout="centered", page_title="📊 Factor Investing Tool")
+# **🔹 Streamlit Konfiguration**
+st.set_page_config(layout="wide", page_title="📊 Aktien-Screener")
 
-# Sidebar Navigation
-menu = st.sidebar.radio("📋 Navigation", ["🏠 Startseite", "📊 Portfolioanalyse", "📈 Screener", "⚙️ Optimizer"])
-
-# Dynamisches Laden der Features
-if menu == "📊 Portfolioanalyse":
-    portfolio.show_portfolio_analysis()
-
-elif menu == "📈 Screener":
-    screener.show_screener()
-
-elif menu == "⚙️ Optimizer":
-    optimizer.show_optimizer()
-
-else:
-    st.title("📊 Factor Investing Tool")
-    st.write("Willkommen zur Analyse-App!")
+# **🔹 Starte sofort den Screener**
+screener.show_screener()

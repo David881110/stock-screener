@@ -61,11 +61,10 @@ def show_portfolio_analysis():
         # 📊 Berechnung der gewichteten Faktor-Scores
         if st.button("✅ Portfolioanalyse starten"):
             normalized_weights = {stock: w / 100 for stock, w in weights.items()}
-
             factor_columns = ["Final Growth Score", "Value Score", "Quality Score", "Min Volatility Score", "Composite Momentum Score"]
 
             weighted_scores = selected_df[factor_columns].multiply(list(normalized_weights.values()), axis=0).sum()
 
             # 📈 Darstellung der gewichteten Faktoren
+            st.success("✅ Portfolioanalyse abgeschlossen!")
             plot_weighted_factors(weighted_scores, "Gewichtete Portfolio-Faktoren")
-
